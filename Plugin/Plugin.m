@@ -1199,7 +1199,11 @@ BOOL usingMATrackingArea = NO;
 			didReceiveAllResponses = NO;
 	}
 	
-	if (didReceiveAllResponses) _receivedAllResponses = YES;
+	if (didReceiveAllResponses) {
+		_receivedAllResponses = YES;
+		if ([self _useH264Version] && [self _isVideoElementAvailable])
+			[self _convertToMP4Container];
+	}
 	
 	[self setUpExtraMenuItems];
 	[self setNeedsDisplay:YES];
@@ -1313,17 +1317,24 @@ didReceiveResponse:(NSHTTPURLResponse *)response
     [ element setAttribute: @"flashvars" value: nil ];
 }
 
-- (void) _convertElementForVideoElement: (DOMElement*) element
+- (DOMElement*) _createVideoByScript
 {
-    [ element setAttribute: @"src" value: [ self _h264VersionUrl ] ];
-	[ element setAttribute: @"autobuffer" value:@"autobuffer"];
-	[ element setAttribute: @"autoplay" value:@"autoplay"];
-	[ element setAttribute: @"controls" value:@"controls"];
+	NSString* baseVideoJs = [NSString stringWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"video" ofType:@"js"]];
+	NSString* containerId = [NSString stringWithFormat:@"__ClickToFlash_%d", rand()];
 	
-	DOMElement* container = [self container];
+	NSString* videoJs = [NSString stringWithFormat:@"(function() { %@; Video({id: '%@', width: '%d', height: '%d', sources:[['%@', 'video/mp4']], poster:'%@'}); })();", 
+						  baseVideoJs, containerId, [[self container] clientWidth ], [[self container] clientHeight ],
+						  [self _h264VersionUrl],
+						  [NSString stringWithFormat:@"http://i4.ytimg.com/vi/%@/default.jpg", [self videoId]]];
+	DOMElement* script = (DOMElement*)[[[self container] ownerDocument] createElement:@"script"];
+	DOMElement* videoDiv = (DOMElement*)[[[self container] ownerDocument] createElement:@"div"];
+	DOMElement* containerDiv = (DOMElement*)[[[self container] ownerDocument] createElement:@"div"];
 	
-	[ element setAttribute:@"width" value:[ NSString stringWithFormat:@"%dpx", [ container clientWidth ]]];
-	[ element setAttribute:@"height" value:[ NSString stringWithFormat:@"%dpx", [ container clientHeight ]]];
+	[videoDiv setAttribute:@"id" value:containerId];
+	[script appendChild:[[[self container] ownerDocument] createTextNode:videoJs]];
+	[containerDiv appendChild:videoDiv];	
+	[containerDiv appendChild:script];
+	return containerDiv;
 }
 
 - (void) _convertToMP4Container
@@ -1339,8 +1350,7 @@ didReceiveResponse:(NSHTTPURLResponse *)response
 {
 	DOMElement* newElement;
 	if ([ self _isVideoElementAvailable ]) {
-		newElement = [[[self container] ownerDocument] createElement:@"video"];
-		[ self _convertElementForVideoElement: newElement ];
+		newElement = [self _createVideoByScript];
     } else {
 		newElement = (DOMElement*) [ [self container] cloneNode: NO ];
 		[ self _convertElementForMP4:newElement ];
