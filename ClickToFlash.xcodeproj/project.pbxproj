@@ -42,6 +42,7 @@
 		55EB70480E04A8850016593D /* Plugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EB703D0E04A84F0016593D /* Plugin.m */; };
 		55EB70580E04A8B80016593D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55EB70560E04A8B80016593D /* Cocoa.framework */; };
 		55EB70590E04A8B80016593D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55EB70570E04A8B80016593D /* WebKit.framework */; };
+		5692295F10374D6B000B93B0 /* video.js in Resources */ = {isa = PBXBuildFile; fileRef = 5692295C10374D63000B93B0 /* video.js */; };
 		6953E4360F3EDE9D0014ECF7 /* CTFMenubarMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6953E4340F3EDE9D0014ECF7 /* CTFMenubarMenuController.m */; };
 		6953E43C0F3EDEB50014ECF7 /* MenubarMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6953E43A0F3EDEB50014ECF7 /* MenubarMenu.xib */; };
 		69A26D0C0F302C10006648BC /* NSBezierPath-RoundedRectangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A26D0B0F302C10006648BC /* NSBezierPath-RoundedRectangle.m */; };
@@ -137,6 +138,7 @@
 		55EB70560E04A8B80016593D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		55EB70570E04A8B80016593D /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		55EB70610E04A8D00016593D /* Info-Plugin.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Info-Plugin.plist"; path = "Plugin/Info-Plugin.plist"; sourceTree = "<group>"; };
+		5692295C10374D63000B93B0 /* video.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = video.js; path = Plugin/video.js; sourceTree = "<group>"; };
 		6953E4340F3EDE9D0014ECF7 /* CTFMenubarMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTFMenubarMenuController.m; path = Plugin/CTFMenubarMenuController.m; sourceTree = "<group>"; };
 		6953E4350F3EDE9D0014ECF7 /* CTFMenubarMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTFMenubarMenuController.h; path = Plugin/CTFMenubarMenuController.h; sourceTree = "<group>"; };
 		6953E43B0F3EDEB50014ECF7 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Plugin/English.lproj/MenubarMenu.xib; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 		55EB70540E04A89C0016593D /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
+				5692295C10374D63000B93B0 /* video.js */,
 				55EB703D0E04A84F0016593D /* Plugin.m */,
 				55EB703C0E04A84F0016593D /* Plugin.h */,
 				A4DEFC770FF33F7400CCB6A8 /* CTFPreferencesDictionary.m */,
@@ -361,6 +364,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5692295F10374D6B000B93B0 /* video.js in Resources */,
 				D9566D8C0F380C9F00358646 /* sifr2-addons.js in Resources */,
 				D9566D8D0F380C9F00358646 /* sifr3-addons.js in Resources */,
 				072189BE0F30D9C3008C8944 /* ContextualMenu.xib in Resources */,
