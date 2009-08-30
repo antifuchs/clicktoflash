@@ -1342,13 +1342,14 @@ didReceiveResponse:(NSHTTPURLResponse *)response
 
 - (DOMElement*) _createVideoByScript
 {
-	NSString* baseVideoJs = [NSString stringWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"video" ofType:@"js"]];
+	NSString* baseVideoJs = [NSString stringWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"video" ofType:@"js"]
+									  encoding:NSUTF8StringEncoding error:NULL];
 	NSString* containerId = [NSString stringWithFormat:@"__ClickToFlash_%d", rand()];
 	
 	NSString* videoJs = [NSString stringWithFormat:@"(function() { %@; Video({id: '%@', width: '%d', height: '%d', sources:[['%@', 'video/mp4']], poster:'%@'}); })();", 
 						  baseVideoJs, containerId, [[self container] clientWidth ], [[self container] clientHeight ],
 						  [self _h264VersionUrl],
-						  [NSString stringWithFormat:@"http://i4.ytimg.com/vi/%@/default.jpg", [self videoId]]];
+						  [NSString stringWithFormat:@"http://i.ytimg.com/vi/%@/0.jpg", [self videoId]]];
 	DOMElement* script = (DOMElement*)[[[self container] ownerDocument] createElement:@"script"];
 	DOMElement* videoDiv = (DOMElement*)[[[self container] ownerDocument] createElement:@"div"];
 	DOMElement* containerDiv = (DOMElement*)[[[self container] ownerDocument] createElement:@"div"];
